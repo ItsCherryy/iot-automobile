@@ -4,27 +4,27 @@ IoT automotive with different sensors and actuators including a light dependent 
 <div align="center">
  <table>
   <tr>
-   <td>Prototype</td>
-   <td>Web Interface</td>
+   <td align="center">Prototype</td>
+   <td align="center">Web Interface</td>
   </tr>
   <tr>
-  <td>
-   <img src="images/prototype.jpg" width=400>
+  <td align="center">
+   <img src="images/prototype.jpg" width=600>
   </td>
-  <td>
-   <img src="images/web_interface.jpg" width=400>
+  <td align="center">
+   <img src="images/web_interface.jpg" width=600>
   </td>
   </tr>
   <tr>
-   <td>Hardware Structure</td>
-   <td>Software Structure</td>
+   <td align="center">Hardware Structure</td>
+   <td align="center">Software Structure</td>
   </tr>
   <tr>
-  <td>
-   <img src="images/hardware_structure.jpg" width=400>
+  <td align="center">
+   <img src="images/hardware_structure.jpg" width=600>
   </td>
-  <td>
-   <img src="images/software_structure.jpg" width=400>
+  <td align="center">
+   <img src="images/software_structure.jpg" width=600>
   </td>
   </tr>
  </table>  
