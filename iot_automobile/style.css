@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
+span {
+    color: white;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    font-family: Arial, sans-serif;
+}
+
+#banner {
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.19);
+}
+
+#title {
+    font-weight: bold;
+    font-size: 3vw;
+    padding-bottom: 3px;
+}
+
+.heading {
+    display: inline;
+    font-size: 2.8vw;
+    margin-left: 5px;
+    margin-top: 1px;
+}
+
+.lgt_cond {
+    display: none;
+}
+
+span:hover {
+    color: orange;
+}
+
+.visited span {
+    color: yellow;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 35%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-left: 20px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+#movement {
+    position: absolute;
+    bottom: 8px;
+    right: 30px;
+}
+
+#direction {
+    position: absolute;
+    bottom: 8px;
+    left: 30px;
+}
+
+@media (orientation: landscape) {
+    #controls {
+        position: fixed;
+        top: 55%;
+        left: 70%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        /* this does the trick */
+        overflow: hidden;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .material-icons.md-48 {
+        font-size: 100px;
+    }
+
+    .radio {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (orientation: portrait) {
+    #controls {
+        position: fixed;
+        bottom: 2%;
+        left: 17%;
+        transform: translate(0%, 0%);
+        white-space: nowrap;
+        /* this does the trick */
+        overflow: hidden;
+    }
+
+    #title {
+        font-size: 3vh;
+    }
+
+    .heading,
+    .toggle,
+    .radio {
+        font-size: 2.8vh;
+    }
+
+    .circle {
+        width: 180px;
+        height: 180px;
+    }
+
+    .material-icons.md-48 {
+        font-size: 180px;
+    }
+
+    .slider {
+        width: 90%;
+        height: 30px;
+    }
+
+    .slider::-webkit-slider-thumb {
+        width: 40px;
+        height: 40px;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sub {
+        display: inline-block;
+    }
+}
+
+.question {
+    margin-top: 20px;
+}
+
+.sub {
+    margin-left: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+div {
+    margin-top: 2px;
+}
+
+input+label {
+    font-size: 2.8vw;
+}
+
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    color: black;
+    display: inline-block;
+    /* For IE11/ MS Edge bug */
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.circle {
+    border-radius: 100%;
+    margin: 20px;
+    background: black;
+    display: inline-block;
+    line-height: 100px;
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Toh Kah Hie" />
+    <meta name="description" content="RC Car control website" />
+    <meta name="keywords" content="rc car, swe30011, IoT Programming" />
+    <title>Web Car Controller</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style.css')}}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+        </script>
+</head>
+
+<body>
+    <div id="banner">
+        <h1 id="title">Remote Controlled Car</h1>
+    </div>
+    <div>
+        <p class="heading" id="utl_sensor">Scanning for obstacles</p>
+    </div>
+    <div>
+        <p class="heading">Ambient Light &#58; </p>
+        <p class="heading" id="ldr_sensor">Detecting</p>
+    </div>
+    <div>
+        <p class="heading">{{car[0].name}} &#58; </p>
+        <p class="heading" id="movem">{{car[0].value}}</p>
+    </div>
+    <div>
+        <p class="heading">{{car[1].name}} &#58; </p>
+        <p class="heading" id="direct">{{car[1].value}}</p>
+    </div>
+    <div>
+        <button class="toggle" id="auto_d" onclick="auto_d()">Auto Control</button>
+    </div>
+    <div class="question">
+        <p class="heading">Change direction when &#58; </p>
+    </div>
+    <div class="sub">
+        <p class="heading">Obstacle present in &#58; </p>
+        <p class="heading" id="dis_lim">{{sensor[2].value}}</p>
+        <p class="heading">cm</p>
+    </div>
+    <div>
+        <input type="range" value="{{sensor[2].value}}" min="10" max="30" class="slider"
+            onchange="updateTextInput(this.value)">
+    </div>
+    <div class="question">
+        <p class="heading">Lights &#58; </p>
+    </div>
+    <div class="sub">
+        <input class="radio" id="on" type="radio" name="switches" value="on" onchange="led(1)">
+        <label class="radio" for="on"><span></span>On</label>
+    </div>
+    <div class="sub">
+        <input class="radio" id="on_wd" type="radio" name="switches" value="on_wd" onchange="led(2)">
+        <label class="radio" for="on_wd"><span></span>On When Dark</label>
+    </div>
+    <div class="sub">
+        <input class="radio" id="off" type="radio" name="switches" value="off" onchange="led(0)">
+        <label class="radio" for="off"><span></span>Off</label>
+    </div>
+    <p id="lights_auto" class="lgt_cond">{{lights[0].automatic}}</p>
+    <p id="lights_onoff" class="lgt_cond">{{lights[0].value}}</p>
+    <script>
+        if (document.getElementById("lights_auto").innerHTML === "1") {
+            document.getElementById('on_wd').checked = true;
+        } else {
+            if (document.getElementById("lights_onoff").innerHTML === "0") {
+                document.getElementById('off').checked = true;
+            } else {
+                document.getElementById('on').checked = true;
+            }
+        }
+    </script>
+    <table id="controls">
+        <tr>
+            <td>
+                <a href="/forward/left" class="circle">
+                    <span class="material-icons md-48">north_west</span>
+                </a>
+            </td>
+            <td>
+                <a href="/forward/straight" class="circle">
+                    <span class="material-icons md-48">north</span>
+                </a>
+            </td>
+            <td><a href="/forward/right" class="circle">
+                    <span class="material-icons md-48">north_east</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/rest/left" class="circle">
+                    <span class="material-icons md-48">west</span>
+                </a>
+            </td>
+            <td>
+                <a href="/rest/straight" class="circle" id="scan">
+                    <span class="material-icons md-48">not_started</span>
+                </a>
+            </td>
+            <td><a href="/rest/right" class="circle">
+                    <span class="material-icons md-48">east</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/backward/left" class="circle">
+                    <span class="material-icons md-48">south_west</span>
+                </a>
+            </td>
+            <td>
+                <a href="/backward/straight" class="circle">
+                    <span class="material-icons md-48">south</span>
+                </a>
+            </td>
+            <td>
+                <a href="/backward/right" class="circle">
+                    <span class="material-icons md-48">south_east</span>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <script>
+        var orders = document.getElementsByClassName("circle");
+        var i;
+        for (i = 0; i < orders.length; i++) {
+            if (orders[i].href == document.URL) {
+                orders[i].classList.add("visited");
+            }
+        }
+    </script>
+</body>
+
+</html>
+<script>
+    function updateData() {
+        $.ajax({
+            url: "/update",
+            method: "POST",
+            success: function (res) {
+                document.getElementById("movem").innerHTML = res.car[0].value;
+                document.getElementById("direct").innerHTML = res.car[1].value;
+                eva = res.sensor[0].value;
+                if (eva == 0) {
+                    message = "Scanning for obstacles...";
+                } else if (eva > 100) {
+                    message = "No obstacle nearby";
+                } else {
+                    message = "Obstacle detected in " + eva + " cm";
+                }
+                document.getElementById("utl_sensor").innerHTML = message;
+                light = res.sensor[1].value;
+                if (light < 50) {
+                    ambient = "Very Dark";
+                } else if (light < 100) {
+                    ambient = "Bright";
+                } else {
+                    ambient = "Very Bright";
+                }
+                document.getElementById("ldr_sensor").innerHTML = ambient;
+            },
+        });
+    }
+    function led(cond) {
+        $.ajax({
+            url: "/switches/" + cond,
+            method: "POST",
+            success: function (stat) {
+            },
+        });
+    }
+    function flask_auto() {
+        $.ajax({
+            url: "/toggle_auto",
+            method: "GET",
+            success: function (stat) {
+                if (stat == "1") {
+                    var button = document.getElementById('auto_d');
+                    button.onclick = manual_d;
+                    button.innerHTML = "Manual Control";
+                } else {
+                    var button = document.getElementById('auto_d');
+                    button.onclick = auto_d;
+                    button.innerHTML = "Auto Control";
+                }
+            },
+        });
+    }
+    function auto_d() {
+        var links = document.getElementsByClassName("circle");
+        Array.from(links).forEach(l => l.className += " disabled");
+        flask_auto();
+    }
+    function manual_d() {
+        var links = document.getElementsByClassName("circle");
+        Array.from(links).forEach(l => l.classList.remove("disabled"));
+        flask_auto();
+    }
+    function updateTextInput(val) {
+        $.ajax({
+            url: "/update_dlim/" + val,
+            method: "POST",
+            success: function (stat) {
+                document.getElementById('dis_lim').innerHTML = stat;
+            },
+        });
+    }
+    setInterval(updateData, 500);
+</script>
