@@ -35,7 +35,8 @@ IoT automotive with different sensors and actuators including a light dependent 
  * Programming microcontrollers such as Arduino Uno and ESP32 as well as Raspberry Pi
  * Using Arduino to connect and manipulate different sensors, actuators and other components
  * Hosting a website using Python Flask
- * Assemble parts together to form a prototype
+ * Devise the software and hardware architecture of a prototype
+ * Assemble parts available together to form a prototype
 
 # Video Presentation
 <div align="center">
