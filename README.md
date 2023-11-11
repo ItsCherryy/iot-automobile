@@ -1,4 +1,4 @@
-# IoT Automobile
+# IoT (Internet of Things) Automobile
 IoT automotive with different sensors and actuators including a light dependent resistor, an ultrasonic sensor, a stepper motor, a light-emitting diode (LED), as well as a servo motor. Controllable via web interface hosted using Python Flask.
 
 <div align="center">
